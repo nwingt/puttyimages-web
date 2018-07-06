@@ -64,7 +64,7 @@
       />
       <v-btn
         class="btn--likecoin the-upload-image-form__license-input__help-button"
-        href="https://google.com"
+        href="https://creativecommons.org/licenses/"
         rel="noopener noreferrer"
         target="_blank"
         icon
