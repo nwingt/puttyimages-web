@@ -18,7 +18,8 @@
       "copy": "Copy",
       "copied": "Copied",
       "submit": "Submit",
-      "done": "Done"
+      "done": "Done",
+      "learnMore": "Learn more"
     }
   },
   "Language": {
@@ -136,8 +137,18 @@
       "tags": "Tags"
     },
     "button": {
+      "remove": "Remove Image",
       "useOrDownload": "Use or Download This Image",
       "reportAbuse": "Report Image Right Violations / Abuse"
+    }
+  },
+  "RemoveImageDialog": {
+    "title": "Remove Image",
+    "label": {
+      "notGuarantee": "Removing image not guarantee to be completely removed on the IPFS"
+    },
+    "button": {
+      "confirm": "I understand and want to unlink this image from my account"
     }
   },
   "ReportImageDialog": {

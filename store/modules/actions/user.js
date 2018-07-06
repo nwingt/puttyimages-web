@@ -61,6 +61,7 @@ export async function loginUser({ commit, state }, wallet) {
 }
 
 export async function updateWallet({ commit, dispatch, state }, wallet) {
+  commit(types.USER_BEGIN_AUTH);
   try {
     if (state.wallet !== wallet) {
       commit(types.USER_SET_USER_INFO, {});
@@ -68,8 +69,9 @@ export async function updateWallet({ commit, dispatch, state }, wallet) {
     commit(types.USER_SET_LOCAL_WALLET, wallet);
 
     if (!wallet) return;
-    dispatch('checkIsUser', wallet);
+    await dispatch('checkIsUser', wallet);
   } catch (err) {
     console.error(err); // eslint-disable-line no-console
   }
+  commit(types.USER_END_AUTH);
 }

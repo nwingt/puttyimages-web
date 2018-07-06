@@ -6,6 +6,8 @@ import * as getters from './getters/user';
 import * as types from '../mutation-types';
 
 const userState = {
+  isAuthenticated: false,
+  isAuthenticating: false,
   isAuthNeeded: false,
   isRegisterNeeded: false,
   user: {},
@@ -13,6 +15,13 @@ const userState = {
 };
 
 const mutations = {
+  [types.USER_BEGIN_AUTH](state) {
+    state.isAuthenticating = true;
+  },
+  [types.USER_END_AUTH](state) {
+    state.isAuthenticating = false;
+    state.isAuthenticated = true;
+  },
   [types.USER_SET_LOCAL_WALLET](state, wallet) {
     state.wallet = wallet;
   },

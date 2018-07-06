@@ -81,15 +81,29 @@
                 >{{ $t('CC.attribution') }}</a>
               </i18n>
             </p>
-            <a
-              class="text--underline text--size-12"
-              @click="reportImage"
-            >{{ $t('ImageDetails.button.reportAbuse') }}</a>
+            <transition name="page">
+              <a
+                v-if="isUnderAuth && isEditable"
+                key="delete"
+                class="text--underline text--size-12"
+                @click="deleteImage"
+              >{{ $t('ImageDetails.button.remove') }}</a>
+              <a
+                v-else-if="isUnderAuth"
+                key="report"
+                class="text--underline text--size-12"
+                @click="reportImage"
+              >{{ $t('ImageDetails.button.reportAbuse') }}</a>
+            </transition>
           </section>
         </div>
       </div>
     </div>
 
+    <remove-image-dialog
+      :image="image"
+      :is-open.sync="isRemoveImageDialogOpen"
+    />
     <report-image-dialog
       :image="image"
       :is-open.sync="isReportImageDialogOpen"
@@ -102,9 +116,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import { LICENSE } from '~/constant';
 
 import LikeButton from '~/components/LikeButton';
+import RemoveImageDialog from '~/components/RemoveImageDialog';
 import ReportImageDialog from '~/components/ReportImageDialog';
 import UseImageDialog from '~/components/UseImageDialog';
 import UserBadge from '~/components/UserBadge';
@@ -120,6 +137,7 @@ export default {
   name: 'image-details',
   components: {
     LikeButton,
+    RemoveImageDialog,
     ReportImageDialog,
     UseImageDialog,
     UserBadge,
@@ -141,11 +159,19 @@ export default {
   data() {
     return {
       isImageLoaded: false,
+      isRemoveImageDialogOpen: false,
       isReportImageDialogOpen: false,
       isUseImageDialogOpen: false,
     };
   },
   computed: {
+    ...mapGetters(['isUnderAuth', 'getUserInfo']),
+    isEditable() {
+      return this.getUserInfo.wallet === this.image.wallet;
+    },
+    isUserdependent() {
+      return this.isAuthenticated && !this.isAuthenticating;
+    },
     licenseBadge() {
       return LICENSE_BADGE[this.image.license];
     },
@@ -165,6 +191,9 @@ export default {
     this.openSubDialogIfNeeded();
   },
   methods: {
+    deleteImage() {
+      this.isRemoveImageDialogOpen = true;
+    },
     onImageLoaded() {
       this.isImageLoaded = true;
     },
