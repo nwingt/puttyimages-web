@@ -62,7 +62,25 @@
             </ul>
           </section>
           <section class="image-details-content__license">
-            <p>{{ image.license.name }}</p>
+            <p>
+              <a
+                :href="licenseURL"
+                rel="license"
+                target="_blank"
+              >
+                <img
+                  :alt="$t(`CC.badge.${licenseType}`)"
+                  :src="licenseBadge"
+                >
+              </a><br>
+              <i18n :path="`CC.description.${licenseType}`">
+                <a
+                  :href="licenseURL"
+                  place="license"
+                  target="_blank"
+                >{{ $t('CC.attribution') }}</a>
+              </i18n>
+            </p>
             <a
               class="text--underline text--size-12"
               @click="reportImage"
@@ -84,10 +102,19 @@
 </template>
 
 <script>
+import { LICENSE } from '~/constant';
+
 import LikeButton from '~/components/LikeButton';
 import ReportImageDialog from '~/components/ReportImageDialog';
 import UseImageDialog from '~/components/UseImageDialog';
 import UserBadge from '~/components/UserBadge';
+
+const LICENSE_BADGE = {
+  'cc-by': 'https://licensebuttons.net/l/by/4.0/88x31.png',
+  'cc-by-nd': 'https://licensebuttons.net/l/by-nd/4.0/88x31.png',
+  'cc-by-sa': 'https://licensebuttons.net/l/by-sa/4.0/88x31.png',
+  cc0: 'https://licensebuttons.net/l/zero/1.0/88x31.png',
+};
 
 export default {
   name: 'image-details',
@@ -117,6 +144,17 @@ export default {
       isReportImageDialogOpen: false,
       isUseImageDialogOpen: false,
     };
+  },
+  computed: {
+    licenseBadge() {
+      return LICENSE_BADGE[this.image.license];
+    },
+    licenseType() {
+      return this.image.license === 'cc0' ? 'public' : 'license';
+    },
+    licenseURL() {
+      return LICENSE[this.image.license];
+    },
   },
   watch: {
     image() {

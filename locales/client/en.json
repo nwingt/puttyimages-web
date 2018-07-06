@@ -25,6 +25,17 @@
     "en": "English",
     "zh": "正體中文"
   },
+  "CC": {
+    "attribution": "Creative Commons Attribution 4.0 International License",
+    "badge": {
+      "license": "Creative Commons License",
+      "public": "Public Domain Mark"
+    },
+    "description": {
+      "license": "This work is licensed under a {license}.",
+      "public": "This work is free of known copyright restrictions."
+    }
+  },
   "Menu": {
     "item": {
       "upload": "@:Upload.title",

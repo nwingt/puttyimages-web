@@ -21,6 +21,17 @@
       "done": "完成"
     }
   },
+  "CC": {
+    "attribution": "創用 CC 姓名標示 4.0 國際 授權條款",
+    "badge": {
+      "license": "創用 CC 授權條款",
+      "public": "公眾領域標章"
+    },
+    "description": {
+      "license": "本著作是採用{license}授權。",
+      "public": "此作品無已知的著作權限制。"
+    }
+  },
   "Menu": {
     "item": {
       "upload": "@:Upload.title",
